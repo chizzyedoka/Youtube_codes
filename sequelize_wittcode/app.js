@@ -1,6 +1,7 @@
 const express = require("express");
 const { sequelize, User, Student } = require("./models/index");
-
+const Sequelize = require("sequelize");
+const { Op } = Sequelize;
 const app = express();
 
 // For POST request
@@ -29,7 +30,7 @@ sequelize
       password: "123456",
       age: 19,
     };
-    User.create(user);
+    // User.create(user);
   })
   // .then(() => {
   //   const students = Student.bulkCreate(
@@ -53,12 +54,33 @@ sequelize
   //   );
   //   return students;
   // })
-  .then((data) => {
-    console.log(JSON.stringify(data));
+  // .then((data) => {
+  //   console.log(JSON.stringify(data));
+  // })
+  .then(() => {
+    getStudentNames();
   })
-  .then(() => {})
   .catch((err) => {
     console.error(err);
   });
+
+// Query 1. retrieve name of every student whose favorite class is Computer  or subscribed to wittcode
+// 2.  Count the total amount of students in each school year and give the returned column the alias
+async function getStudentNames() {
+  try {
+    const student_names = await Student.findAll({
+      attributes: ["name"],
+      where: {
+        [Op.or]: [
+          { favorite_class: "Computer Science" },
+          { subscribed_to_wittcode: true },
+        ],
+      },
+    });
+    console.log(student_names.forEach((el) => console.log(JSON.stringify(el))));
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+}
 
 // user.save();
