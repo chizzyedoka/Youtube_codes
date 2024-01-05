@@ -22,7 +22,7 @@ sequelize
     //   password: "1234",
     //   age: 23,
     // });
-    // user.save();
+    // user.save(); no need for this when using create method
     // console.log(user.username);
     const user = {
       username: "Nonso",
@@ -31,6 +31,32 @@ sequelize
     };
     User.create(user);
   })
+  // .then(() => {
+  //   const students = Student.bulkCreate(
+  //     [
+  //       {
+  //         name: "chizzy",
+  //         favorite_class: "communications",
+  //         school_year: 2024,
+  //         subscribed_to_wittcode: false,
+  //       },
+  //       {
+  //         name: "tola",
+  //         school_year: 2024,
+  //       },
+  //       {
+  //         name: "franklin",
+  //         school_year: 2023,
+  //       },
+  //     ],
+  //     { validate: true }
+  //   );
+  //   return students;
+  // })
+  .then((data) => {
+    console.log(JSON.stringify(data));
+  })
+  .then(() => {})
   .catch((err) => {
     console.error(err);
   });

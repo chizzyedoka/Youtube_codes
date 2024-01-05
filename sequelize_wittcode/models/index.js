@@ -61,6 +61,7 @@ const Student = sequelize.define(
     },
     subscribed_to_wittcode: {
       type: Sequelize.BOOLEAN,
+      defaultValue: true,
     },
   },
   { timestamps: false }
